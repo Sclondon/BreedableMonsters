@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://c2abvjowke3uy"]
+
+[ext_resource type="Script" uid="uid://ci760opeaq8me" path="res://monster.gd" id="1_monster"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_1"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_core"]
+radius = 0.18
+height = 0.36
+radial_segments = 10
+rings = 6
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+
+[node name="Monster" type="RigidBody3D" unique_id=1303193622]
+physics_material_override = SubResource("PhysicsMaterial_1")
+gravity_scale = 0.0
+can_sleep = false
+contact_monitor = true
+max_contacts_reported = 8
+linear_damp_mode = 1
+angular_damp_mode = 1
+script = ExtResource("1_monster")
+
+[node name="Mesh" type="MeshInstance3D" parent="." unique_id=1978032935]
+mesh = SubResource("BoxMesh_1")
+
+[node name="Core" type="MeshInstance3D" parent="." unique_id=191115797]
+mesh = SubResource("SphereMesh_core")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=1282278754]
+shape = SubResource("BoxShape3D_1")
+
+[node name="Marker" type="Label3D" parent="." unique_id=239735652]
+top_level = true
+billboard = 1
+modulate = Color(1, 0.72, 0.2, 1)
+outline_modulate = Color(0.1, 0.08, 0.05, 1)
+text = "!"
+font_size = 64

@@ -1,0 +1,107 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://main.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://monster.tscn" id="2_monster"]
+[ext_resource type="Script" path="res://camera_rig.gd" id="3_camera"]
+[ext_resource type="PackedScene" path="res://food.tscn" id="4_food"]
+[ext_resource type="PackedScene" path="res://tank.tscn" id="5_tank"]
+[ext_resource type="PackedScene" path="res://shop_popup.tscn" id="6_shop"]
+
+[sub_resource type="Environment" id="Environment_1"]
+background_mode = 1
+background_color = Color(0.02, 0.03, 0.05, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.32, 0.55, 0.68, 1)
+ambient_light_energy = 0.55
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_main")
+monster_scene = ExtResource("2_monster")
+food_scene = ExtResource("4_food")
+tank_scene = ExtResource("5_tank")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1")
+
+[node name="CameraRig" type="Node3D" parent="."]
+script = ExtResource("3_camera")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.86, -0.25, 0.44, 0, 0.87, 0.49, -0.51, -0.42, 0.75, 4, 6, 6)
+
+[node name="Tanks" type="Node3D" parent="."]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Root" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Status" type="Label" parent="HUD/Root"]
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 1180.0
+offset_bottom = 60.0
+
+[node name="Shop" type="VBoxContainer" parent="HUD/Root"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -230.0
+offset_top = 12.0
+offset_right = -16.0
+offset_bottom = 220.0
+grow_horizontal = 0
+theme_override_constants/separation = 6
+
+[node name="Catalogue" type="Button" parent="HUD/Root/Shop"]
+text = "SPECIMEN CATALOGUE"
+
+[node name="BuyFood" type="Button" parent="HUD/Root/Shop"]
+text = "FEED"
+
+[node name="BuyTank" type="Button" parent="HUD/Root/Shop"]
+text = "NEW TANK"
+
+[node name="TanksLabel" type="Label" parent="HUD/Root/Shop"]
+text = "VIEW TANK"
+
+[node name="Tanks" type="HBoxContainer" parent="HUD/Root/Shop"]
+theme_override_constants/separation = 4
+
+[node name="Selection" type="PanelContainer" parent="HUD/Root"]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -190.0
+offset_right = 300.0
+offset_bottom = -16.0
+grow_vertical = 0
+
+[node name="Rows" type="VBoxContainer" parent="HUD/Root/Selection"]
+theme_override_constants/separation = 8
+
+[node name="Info" type="Label" parent="HUD/Root/Selection/Rows"]
+size_flags_vertical = 3
+text = "NO SPECIMEN SELECTED"
+
+[node name="Sell" type="Button" parent="HUD/Root/Selection/Rows"]
+text = "SELL"
+
+[node name="ShopPopup" parent="HUD/Root" instance=ExtResource("6_shop")]
+visible = false
+
+[node name="Result" type="Label" parent="HUD/Root"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_font_sizes/font_size = 28
+text = "RESULT"
+horizontal_alignment = 1
+vertical_alignment = 1

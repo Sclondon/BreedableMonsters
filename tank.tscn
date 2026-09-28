@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://tank.gd" id="1_tank"]
+
+[node name="Tank" type="Node3D"]
+script = ExtResource("1_tank")
+
+[node name="Monsters" type="Node3D" parent="."]
+
+[node name="Pellets" type="Node3D" parent="."]
